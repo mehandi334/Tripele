@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Status UI</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(white 1px, transparent 1px),
+                  radial-gradient(white 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      background-color: black;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    .status-box {
+      border: 2px solid transparent;
+      border-image: linear-gradient(to right, red, orange, violet);
+      border-image-slice: 1;
+      padding: 20px;
+      margin: 60px auto;
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 12px #0ff;
+    }
+
+    .server-text {
+      color: #00ffcc;
+      font-weight: bold;
+      margin: 15px 0;
+      font-size: 22px;
+      text-shadow: 0 0 4px #0ff;
+    }
+
+    .status-content {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .status-content div span {
+      display: block;
+      margin-top: 5px;
+    }
+
+    .next-result {
+      display: inline-block;
+      background: #ff4500;
+      padding: 4px 12px;
+      border-radius: 5px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .emoji {
+      font-size: 20px;
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="status-box">
+    <div class="server-text">
+      💸 ALL SERVER CONNECTED 💸
+    </div>
+
+    <div class="status-content">
+      <div>
+        WIN : <span style="color: #00ff00;">0</span><br>
+        LOSE : <span style="color: #ff4444;">1</span>
+      </div>
+      <div>
+        Number<br><span style="font-weight: bold;">9</span>
+      </div>
+      <div>
+        Next Result<br><span class="next-result">Big</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
