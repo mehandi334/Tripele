@@ -15,44 +15,44 @@
       color: white;
       text-align: center;
       overflow: hidden;
-      position: relative;
-    }
-
-    /* 🔵 Animated Dots in Background */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(white 1px, transparent 1px),
-                  radial-gradient(white 1px, transparent 1px);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      opacity: 0.08;
-      animation: moveDots 20s linear infinite;
-      z-index: 0;
-    }
-
-    @keyframes moveDots {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-20px, -20px); }
     }
 
     .status-box {
       position: relative;
       z-index: 1;
-      width: 100%; /* ✅ Full width */
-      max-width: 400px; /* Optional: limit max size on large screens */
+      width: 100%;
+      max-width: 400px;
       margin: 60px auto;
       padding: 20px;
-      background: rgba(0, 0, 0, 0.85);
+      background: black;
       border: 2px solid transparent;
       border-image: linear-gradient(to right, red, orange, violet);
       border-image-slice: 1;
       border-radius: 15px;
       box-shadow: 0 0 12px #0ff;
+      overflow: hidden;
+    }
+
+    .status-box::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(#ffffff 1.5px, transparent 1.5px),
+        radial-gradient(#ffffff 1.5px, transparent 1.5px);
+      background-size: 15px 15px;
+      background-position: 0 0, 7.5px 7.5px;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    .server-text,
+    .status-content {
+      position: relative;
+      z-index: 1;
     }
 
     .server-text {
@@ -106,13 +106,41 @@
         LOSE : <span style="color: #ff4444;">1</span>
       </div>
       <div>
-        Number<br><span style="font-weight: bold;">9</span>
+        Number<br><span id="randomNumber" style="font-weight: bold;">9</span>
       </div>
       <div>
-        Next Result<br><span class="next-result">Big</span>
+        Next Result<br><span id="prediction" class="next-result">Big</span>
       </div>
     </div>
   </div>
+
+  <script>
+    const bigNumbers = [9, 8, 7, 6, 5];
+    const smallNumbers = [0, 1, 2, 3, 4];
+
+    function updatePrediction() {
+      // Randomly choose BIG or SMALL
+      const isBig = Math.random() < 0.5;
+      const number = isBig
+        ? bigNumbers[Math.floor(Math.random() * bigNumbers.length)]
+        : smallNumbers[Math.floor(Math.random() * smallNumbers.length)];
+
+      document.getElementById("prediction").innerText = isBig ? "Big" : "Small";
+      document.getElementById("randomNumber").innerText = number;
+    }
+
+    // Update immediately on load
+    updatePrediction();
+
+    // Then update at start of each minute
+    const now = new Date();
+    const delay = (60 - now.getSeconds()) * 1000;
+
+    setTimeout(() => {
+      updatePrediction();
+      setInterval(updatePrediction, 60000); // every 60s
+    }, delay);
+  </script>
 
 </body>
 </html>
