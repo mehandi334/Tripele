@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Status UI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: black;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 🔵 Animated Dots in Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(white 1px, transparent 1px),
+                  radial-gradient(white 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      opacity: 0.08;
+      animation: moveDots 20s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes moveDots {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-20px, -20px); }
+    }
+
+    .status-box {
+      position: relative;
+      z-index: 1;
+      width: 100%; /* ✅ Full width */
+      max-width: 400px; /* Optional: limit max size on large screens */
+      margin: 60px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid transparent;
+      border-image: linear-gradient(to right, red, orange, violet);
+      border-image-slice: 1;
+      border-radius: 15px;
+      box-shadow: 0 0 12px #0ff;
+    }
+
+    .server-text {
+      color: #00ffcc;
+      font-weight: bold;
+      margin: 10px 0;
+      font-size: 20px;
+      text-shadow: 0 0 4px #0ff;
+    }
+
+    .status-content {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      flex-wrap: wrap;
+    }
+
+    .status-content div span {
+      display: block;
+      margin-top: 5px;
+    }
+
+    .next-result {
+      display: inline-block;
+      background: #ff4500;
+      padding: 3px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      color: white;
+      font-size: 14px;
+    }
+
+    .emoji {
+      font-size: 20px;
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="status-box">
+    <div class="server-text">
+      💸 ALL SERVER CONNECTED 💸
+    </div>
+
+    <div class="status-content">
+      <div>
+        WIN : <span style="color: #00ff00;">0</span>
+        LOSE : <span style="color: #ff4444;">1</span>
+      </div>
+      <div>
+        Number<br><span style="font-weight: bold;">9</span>
+      </div>
+      <div>
+        Next Result<br><span class="next-result">Big</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
