@@ -10,7 +10,6 @@
 
     body {
       margin: 0;
-      background: transparent;
       font-family: 'Arial', sans-serif;
       color: white;
       text-align: center;
@@ -19,6 +18,27 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background: black;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(120deg, #0ff, #000, #f0f, #000, #0ff);
+      animation: animateBG 20s linear infinite;
+      z-index: 0;
+      opacity: 0.2;
+      filter: blur(80px);
+    }
+
+    @keyframes animateBG {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .status-box {
@@ -27,12 +47,12 @@
       width: 100%;
       max-width: 400px;
       padding: 20px;
-      background: black;
+      background: rgba(0, 0, 0, 0.8);
       border: 2px solid transparent;
       border-image: linear-gradient(to right, red, orange, violet);
       border-image-slice: 1;
       border-radius: 15px;
-      box-shadow: 0 0 12px #0ff;
+      box-shadow: 0 0 15px #0ff;
       overflow: hidden;
     }
 
@@ -48,7 +68,7 @@
         radial-gradient(#ffffff 1.5px, transparent 1.5px);
       background-size: 15px 15px;
       background-position: 0 0, 7.5px 7.5px;
-      opacity: 0.3;
+      opacity: 0.1;
       z-index: 0;
     }
 
@@ -89,24 +109,16 @@
       color: white;
       font-size: 14px;
     }
-
-    .emoji {
-      font-size: 20px;
-      margin: 0 5px;
-    }
   </style>
 </head>
 <body>
 
   <div class="status-box">
-    <div class="server-text">
-      💸 ALL SERVER CONNECTED 💸
-    </div>
-
+    <div class="server-text">💸 ALL SERVER CONNECTED 💸</div>
     <div class="status-content">
       <div>
-        WIN : <span style="color: #00ff00;">0</span>
-        LOSE : <span style="color: #ff4444;">1</span>
+        WIN : <span id="winCount" style="color: #00ff00;">0</span>
+        LOSE : <span id="lossCount" style="color: #ff4444;">0</span>
       </div>
       <div>
         Number<br><span id="randomNumber" style="font-weight: bold;">9</span>
@@ -120,17 +132,32 @@
   <script>
     const bigNumbers = [9, 8, 7, 6, 5];
     const smallNumbers = [0, 1, 2, 3, 4];
+    let winCount = 0;
+    let lossCount = 0;
 
     function updatePrediction() {
-      const isBig = Math.random() < 0.5;
-      const number = isBig
+      const isBigPrediction = Math.random() < 0.5;
+      const predictedLabel = isBigPrediction ? "Big" : "Small";
+      const number = isBigPrediction
         ? bigNumbers[Math.floor(Math.random() * bigNumbers.length)]
         : smallNumbers[Math.floor(Math.random() * smallNumbers.length)];
 
-      document.getElementById("prediction").innerText = isBig ? "Big" : "Small";
+      const actualLabel = number >= 5 ? "Big" : "Small";
+      const isWin = predictedLabel === actualLabel;
+
+      if (isWin) {
+        winCount++;
+        document.getElementById("winCount").innerText = winCount;
+      } else {
+        lossCount++;
+        document.getElementById("lossCount").innerText = lossCount;
+      }
+
+      document.getElementById("prediction").innerText = predictedLabel;
       document.getElementById("randomNumber").innerText = number;
     }
 
+    // Initial call
     updatePrediction();
 
     const now = new Date();
@@ -138,7 +165,7 @@
 
     setTimeout(() => {
       updatePrediction();
-      setInterval(updatePrediction, 60000); // every 60s
+      setInterval(updatePrediction, 60000); // every 60 seconds
     }, delay);
   </script>
 
