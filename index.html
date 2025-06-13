@@ -3,32 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>Status UI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
       box-sizing: border-box;
     }
 
-    html, body {
+    body {
       margin: 0;
-      padding: 40px 0;
-      background: transparent; /* ✅ background fully transparent */
+      background: transparent;
       font-family: 'Arial', sans-serif;
       color: white;
       text-align: center;
+      overflow: hidden;
+      height: 100vh;
       display: flex;
+      align-items: center;
       justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
     }
 
     .status-box {
       position: relative;
       z-index: 1;
-      width: 90%;
-      max-width: 320px;
+      width: 100%;
+      max-width: 400px;
       padding: 20px;
-      background: #000;
+      background: black;
       border: 2px solid transparent;
       border-image: linear-gradient(to right, red, orange, violet);
       border-image-slice: 1;
@@ -63,7 +62,7 @@
       color: #00ffcc;
       font-weight: bold;
       margin: 10px 0;
-      font-size: 18px;
+      font-size: 20px;
       text-shadow: 0 0 4px #0ff;
     }
 
@@ -72,7 +71,7 @@
       justify-content: center;
       gap: 20px;
       margin-top: 10px;
-      font-size: 15px;
+      font-size: 16px;
       flex-wrap: wrap;
     }
 
@@ -98,10 +97,12 @@
   </style>
 </head>
 <body>
+
   <div class="status-box">
     <div class="server-text">
-      😈 Dexaa Zyrx 😈
+      💸 ALL SERVER CONNECTED 💸
     </div>
+
     <div class="status-content">
       <div>
         WIN : <span style="color: #00ff00;">0</span>
@@ -125,17 +126,21 @@
       const number = isBig
         ? bigNumbers[Math.floor(Math.random() * bigNumbers.length)]
         : smallNumbers[Math.floor(Math.random() * smallNumbers.length)];
+
       document.getElementById("prediction").innerText = isBig ? "Big" : "Small";
       document.getElementById("randomNumber").innerText = number;
     }
 
     updatePrediction();
+
     const now = new Date();
     const delay = (60 - now.getSeconds()) * 1000;
+
     setTimeout(() => {
       updatePrediction();
-      setInterval(updatePrediction, 60000);
+      setInterval(updatePrediction, 60000); // every 60s
     }, delay);
   </script>
+
 </body>
 </html>
